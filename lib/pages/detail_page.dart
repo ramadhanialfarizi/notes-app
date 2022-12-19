@@ -7,6 +7,7 @@ class DetailPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final parameter = ModalRoute.of(context)!.settings.arguments as NoteModel;
+    String id = parameter.id as String;
     String title = parameter.title as String;
     String desc = parameter.description as String;
     return Scaffold(
@@ -40,7 +41,7 @@ class DetailPages extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.of(context).pushNamed('/edit_notes');
+          Navigator.of(context).pushNamed('/edit_notes', arguments: id);
         },
         icon: const Icon(Icons.edit),
         label: const Text('edit notes'),

@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -103,7 +103,7 @@ class _HomePagesState extends State<HomePages> {
                           Navigator.of(context).pushNamed(
                             '/detail',
                             arguments: NoteModel(
-                              id: collection.doc(document.id) as String,
+                              id: collection.doc(document.id).toString(),
                               title: title,
                               description: description,
                             ),

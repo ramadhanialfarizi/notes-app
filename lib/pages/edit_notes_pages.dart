@@ -29,14 +29,16 @@ class _EditNotesPagesState extends State<EditNotesPages> {
 
   @override
   Widget build(BuildContext context) {
-    final parameter = ModalRoute.of(context)!.settings.arguments as NoteModel;
-    String id = parameter.id as String;
+    final idParameter = ModalRoute.of(context)!.settings.arguments as String;
+    //String id = parameter.id as String;
+
+    print(idParameter);
 
     CollectionReference collection = FirebaseFirestore.instance
         .collection('note_data')
         .doc(currentUsers.currentUser!.email)
         .collection('user_notes');
-    DocumentReference updateCollection = collection.doc(id);
+    DocumentReference updateCollection = collection.doc(idParameter);
 
     return Scaffold(
       appBar: AppBar(
@@ -139,7 +141,7 @@ class _EditNotesPagesState extends State<EditNotesPages> {
                 duration: Duration(milliseconds: 800),
               ),
             );
-            Navigator.pop(context);
+            Navigator.of(context).pushReplacementNamed('/home');
           }
         },
       ),
