@@ -1,3 +1,7 @@
+//import 'dart:html';
+
+//import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +37,7 @@ class _EditNotesPagesState extends State<EditNotesPages> {
     //String id = parameter.id as String;
 
     print(idParameter);
+    print(currentUsers.currentUser!.email);
 
     CollectionReference collection = FirebaseFirestore.instance
         .collection('note_data')

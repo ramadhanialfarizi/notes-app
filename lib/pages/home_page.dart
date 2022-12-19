@@ -103,7 +103,8 @@ class _HomePagesState extends State<HomePages> {
                           Navigator.of(context).pushNamed(
                             '/detail',
                             arguments: NoteModel(
-                              id: collection.doc(document.id).toString(),
+                              //id: collection.doc(document.id).toString(),
+                              id: document.id,
                               title: title,
                               description: description,
                             ),

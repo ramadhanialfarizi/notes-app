@@ -41,6 +41,11 @@ class DetailPages extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          // try {
+          //   Navigator.of(context).pushNamed('/edit_notes', arguments: id);
+          // } catch (e) {
+          //   print(e);
+          // }
           Navigator.of(context).pushNamed('/edit_notes', arguments: id);
         },
         icon: const Icon(Icons.edit),
