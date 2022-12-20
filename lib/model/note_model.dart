@@ -4,9 +4,5 @@ class NoteModel {
   String? description;
   String? image;
 
-  NoteModel({
-    this.id,
-    this.title,
-    this.description,
-  });
+  NoteModel({this.id, this.title, this.description, this.image});
 }

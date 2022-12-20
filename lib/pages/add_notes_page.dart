@@ -156,13 +156,7 @@ class _AddListPageState extends State<AddListPage> {
                           ),
                           onPressed: () async {
                             getImage();
-
-                            // imagePath =
-                            //     await storage.getURLImage('IMG_0009.JPG');
-
-                            // setState(() {});
                           },
-                          //style: ButtonStyle(backgroundColor: Colors.orange[700]),
                         ),
                       ),
                     ],
@@ -190,6 +184,7 @@ class _AddListPageState extends State<AddListPage> {
             collection.add({
               'title': title_controller.text,
               'description': description_controller.text,
+              'image': imagePath,
             });
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(

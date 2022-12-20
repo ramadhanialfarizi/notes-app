@@ -20,6 +20,8 @@ class _DetailPagesState extends State<DetailPages> {
     String id = parameter.id as String;
     String title = parameter.title as String;
     String desc = parameter.description as String;
+    String img = parameter.image as String;
+    imagePath = img;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -52,16 +54,14 @@ class _DetailPagesState extends State<DetailPages> {
                         height: 200,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: Image.network(imagePath!) as ImageProvider,
+                            image: NetworkImage(imagePath!),
                             fit: BoxFit.cover,
                           ),
                         ),
                       )
-                    : Container(
-                        width: double.infinity,
-                        height: 200,
-                        decoration: BoxDecoration(color: Colors.transparent),
-                      )
+                    : SizedBox(
+                        height: 60,
+                      ),
               ],
             ),
           ),

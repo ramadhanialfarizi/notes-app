@@ -76,6 +76,7 @@ class _HomePagesState extends State<HomePages> {
 
                       String title = data['title'];
                       String description = data['description'];
+                      String image = data['image'];
 
                       return ListTile(
                         title: Text(
@@ -107,6 +108,7 @@ class _HomePagesState extends State<HomePages> {
                               id: document.id,
                               title: title,
                               description: description,
+                              image: image,
                             ),
                           );
                         },
