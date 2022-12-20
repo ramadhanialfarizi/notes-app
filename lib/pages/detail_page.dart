@@ -1,8 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:note_app/model/note_model.dart';
 
-class DetailPages extends StatelessWidget {
+class DetailPages extends StatefulWidget {
   const DetailPages({super.key});
+
+  @override
+  State<DetailPages> createState() => _DetailPagesState();
+}
+
+class _DetailPagesState extends State<DetailPages> {
+  String? imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +39,31 @@ class DetailPages extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(50.0),
-            child: Text(desc),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(desc),
+                const SizedBox(
+                  height: 60,
+                ),
+                (imagePath != null)
+                    ? Container(
+                        width: double.infinity,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: Image.network(imagePath!) as ImageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: double.infinity,
+                        height: 200,
+                        decoration: BoxDecoration(color: Colors.transparent),
+                      )
+              ],
+            ),
           ),
         ),
       ),

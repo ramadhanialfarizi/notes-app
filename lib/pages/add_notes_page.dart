@@ -1,6 +1,10 @@
+//import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+//import 'package:image_picker/image_picker.dart';
+import 'package:note_app/handler/upload_handler.dart';
+import 'package:file_picker/file_picker.dart';
 
 class AddListPage extends StatefulWidget {
   const AddListPage({super.key});
@@ -15,6 +19,8 @@ class _AddListPageState extends State<AddListPage> {
   final formKey = GlobalKey<FormState>();
 
   final currentUsers = FirebaseAuth.instance;
+  final UploadHandler storage = UploadHandler();
+  String? imagePath;
 
   @override
   void dispose() {
@@ -22,6 +28,36 @@ class _AddListPageState extends State<AddListPage> {
     title_controller.dispose();
     description_controller.dispose();
     super.dispose();
+  }
+
+  // Future<XFile?> getImage() async {
+  //   return await ImagePicker().pickImage(source: ImageSource.gallery);
+  // }
+
+  dynamic getImage() async {
+    final file = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ["png", "jpg"],
+      allowMultiple: false,
+    );
+
+    if (file == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('no selected file'),
+          duration: Duration(milliseconds: 800),
+        ),
+      );
+      return null;
+    }
+
+    final path = file.files.single.path!;
+    final fileName = file.files.single.name;
+
+    storage.uploadImage(path, fileName);
+    imagePath = await storage.getURLImage(fileName);
+
+    setState(() {});
   }
 
   @override
@@ -83,6 +119,54 @@ class _AddListPageState extends State<AddListPage> {
                       }
                     },
                   ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  (imagePath != null)
+                      ? Container(
+                          width: double.infinity,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(imagePath!),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : SizedBox(
+                          height: 0,
+                        ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'upload image',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextButton(
+                          child: const Text(
+                            'upload',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.orange[700], // Text Color
+                          ),
+                          onPressed: () async {
+                            getImage();
+
+                            // imagePath =
+                            //     await storage.getURLImage('IMG_0009.JPG');
+
+                            // setState(() {});
+                          },
+                          //style: ButtonStyle(backgroundColor: Colors.orange[700]),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
