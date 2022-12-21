@@ -65,7 +65,7 @@ class _AddListPageState extends State<AddListPage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference collection = firestore
         .collection('note_data')
-        .doc(currentUsers.currentUser!.email)
+        .doc(currentUsers.currentUser!.uid)
         .collection('user_notes');
 
     return Scaffold(
@@ -184,7 +184,7 @@ class _AddListPageState extends State<AddListPage> {
             collection.add({
               'title': title_controller.text,
               'description': description_controller.text,
-              'image': imagePath,
+              'image': imagePath ?? "no have photo",
             });
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(

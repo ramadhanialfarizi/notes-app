@@ -21,7 +21,7 @@ class _HomePagesState extends State<HomePages> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> usersStream = FirebaseFirestore.instance
         .collection('note_data')
-        .doc(currentUsers.currentUser!.email)
+        .doc(currentUsers.currentUser!.uid)
         .collection('user_notes')
         //.orderBy('name')
         // .where('uid', isEqualTo: currentUsers.currentUser!.uid)
@@ -30,7 +30,7 @@ class _HomePagesState extends State<HomePages> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference collection = firestore
         .collection('note_data')
-        .doc(currentUsers.currentUser!.email)
+        .doc(currentUsers.currentUser!.uid)
         .collection('user_notes');
 
     //DocumentReference notesId = userCollection.doc(document);
@@ -58,6 +58,10 @@ class _HomePagesState extends State<HomePages> {
             child: StreamBuilder<QuerySnapshot>(
               stream: usersStream,
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                /// FOR DEBUGGING
+                if (snapshot == null) {
+                  return Text('data is null');
+                }
                 if (snapshot.hasError) {
                   return const FailLoadScreen();
                 }
